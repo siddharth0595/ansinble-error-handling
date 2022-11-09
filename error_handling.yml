@@ -1,0 +1,22 @@
+- hosts:  webserver
+  vars:
+    name1:  "git"
+  tasks:
+    - name: block code will be execute
+      block:
+        - name: installing the git
+          package:
+            name: git1232
+            state:  present
+          register: x
+
+      rescue:
+        - name: installing the git
+          package:
+            name: "{{ name1 }}"
+            state:  present
+          register: x
+
+      always:
+        - debug:
+            msg: "package {{ name1 }}"
